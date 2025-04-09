@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js "></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
+<script type="text/babel">
+
+    function Btn({capibara, fontSize = 16}) {
+        
+        return <button
+         style = {{
+            backgroundColor : "tomato",
+            color:"white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius : 10,
+            fontSize,
+        }}>{capibara}</button>
+
+    }
+    Btn.propTypes={
+        capibara: PropTypes.string.isRequired,
+        fontSize: PropTypes.number,     //props타입 설명해주기 , 잘못 적으면 콘솔에 오류 띄워줌
+    };
+    const MemorizedBtn = React.memo(Btn); //memorized 된 컴포던트로 바꾸면 부모가 render 되어도 모든 child가 render 되지 않고 바뀌는 애들만 render됨, 최적화
+    function App() {
+        return (
+            <div>
+                <Btn capibara="Save Changes" fontSize={18}/>  
+                <Btn capibara={"contiue"}/>  
+           </div>
+            //여기에 스타일을 넣든 뭘 넣든 작동안됨 이름만 같음 props로 받아서 직접 잘아줘야함
+        );
+    };
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+
+</html>
